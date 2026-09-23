@@ -8,10 +8,11 @@ Run `python3 -m http.server 8765 --directory dist` from this directory.
 
 ## Content
 
-- `dist/index.html`: candidate index
+- `dist/index.html`: candidate index (original summary version)
 - `dist/thawiwat.html`: Thawiwat profile
 - `dist/thawatchai.html`: Thawatchai profile (temporary mock content copied from Thawiwat and clearly labelled)
-- `dist/rangsarn.html`: Rangsarn profile
+- `dist/rangsarn.html` & `dist/rangsan.html`: Rangsarn profile
+- `dist/v1/`: Full official PDF policies version (`v1/index.html`, `v1/thawiwat.html`, `v1/thawatchai.html`, `v1/rangsarn.html`, `v1/rangsan.html`)
 - `dist/style.css`: shared responsive layout
 - `dist/assets/`: original candidate photos resized for web, self-hosted fonts, infographic downloads
 
