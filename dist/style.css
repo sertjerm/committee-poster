@@ -945,3 +945,59 @@ details p {
     font-size: 29px;
   }
 }
+
+/* Keep the track label elegant while making the election category unmistakable. */
+.candidate-group-title h2 {
+  display: block;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--green);
+  font-size: 38px;
+  font-weight: 700;
+  box-shadow: none;
+}
+.profile-titles .eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-height: 0;
+  margin: 0 0 14px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: transparent;
+  font-size: 0;
+  line-height: 1.35;
+}
+.profile-titles .eyebrow::before {
+  content: 'ผู้สมัครกรรมการ · 2570';
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.profile-titles .eyebrow::after {
+  content: 'สายวิชาการ';
+  color: var(--green);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+}
+@media (max-width: 540px) {
+  .candidate-group-title h2 {
+    font-size: 31px;
+  }
+  .profile-titles .eyebrow {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .profile-titles .eyebrow::before {
+    font-size: 14px;
+  }
+  .profile-titles .eyebrow::after {
+    font-size: 27px;
+  }
+}
