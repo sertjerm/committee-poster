@@ -1014,12 +1014,22 @@ details p {
 .profile-hero-top .ballot strong {
   line-height: .86;
 }
+.profile-hero-top .ballot > span {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
 .profile-hero-top .ballot strong::after {
   content: 'สายวิชาการ';
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 7px;
+  padding: 5px 12px 6px;
+  border-radius: 999px;
+  background: #dcece5;
   color: var(--green);
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 800;
   line-height: 1;
 }
@@ -1034,6 +1044,7 @@ details p {
   }
   .profile-hero-top .ballot strong::after {
     margin-top: 6px;
+    padding: 4px 10px 5px;
     font-size: 16px;
   }
 }
