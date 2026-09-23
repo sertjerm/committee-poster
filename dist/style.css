@@ -873,6 +873,13 @@ details p {
     height: 300px;
   }
   .portrait img {
+    object-fit: contain;
+    object-position: center bottom;
+  }
+  .portrait {
+    background: #f0f1ef;
+  }
+  .portrait img {
     object-position: center 24%;
   }
   .cardbody {
@@ -910,15 +917,19 @@ details p {
     grid-template-columns: 32% 68%;
   }
   .portrait {
-    height: 330px;
-    min-height: 330px;
+    height: 320px;
+    min-height: 320px;
   }
   .portrait img {
-    object-position: center 24%;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+  .portrait {
+    background: #f0f1ef;
   }
   .cardbody {
-    min-height: 330px;
-    padding: 32px 36px;
+    min-height: 300px;
+    padding: 28px 32px;
   }
   .cardhead .ballot {
     width: 144px;
