@@ -194,26 +194,39 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--green);
-  color: #fff;
-  border: 2px solid #d9be7c;
-  border-radius: 5px;
-  box-shadow: 0 4px 15px rgba(18, 63, 53, 0.15);
+  background: linear-gradient(135deg, #fffdf5, #f5ecd2);
+  color: var(--green);
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 9px 23px rgba(18, 63, 53, 0.16);
   flex-shrink: 0;
   line-height: 1.05;
+  position: relative;
+  isolation: isolate;
+}
+.ballot::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 64%;
+  height: 4px;
+  bottom: 13px;
+  border-radius: 999px;
+  background: var(--gold);
 }
 .cardhead .ballot {
-  width: 68px;
-  height: 80px;
+  width: 140px;
+  height: 138px;
 }
 .cardhead .ballot span {
-  font-size: 11px;
-  margin-top: 3px;
-  color: #e5d6aa;
+  font-size: 17px;
+  font-weight: 700;
+  margin-top: 1px;
+  color: var(--green);
 }
 .cardhead .ballot strong {
-  font-size: 48px;
-  font-weight: 700;
+  font-size: 98px;
+  font-weight: 800;
   line-height: 1.05;
 }
 .cardbody p:not(.degree) {
@@ -288,17 +301,19 @@ footer {
   line-height: 1.4;
 }
 .profile-hero-top .ballot {
-  width: 96px;
-  height: 110px;
+  width: 252px;
+  height: 222px;
+  margin-top: 2px;
 }
 .profile-hero-top .ballot span {
-  font-size: 13px;
-  margin-top: 4px;
-  color: #e5d6aa;
+  font-size: 27px;
+  font-weight: 700;
+  margin-top: 0;
+  color: var(--green);
 }
 .profile-hero-top .ballot strong {
-  font-size: 68px;
-  font-weight: 700;
+  font-size: 164px;
+  font-weight: 800;
   line-height: 1.05;
 }
 .profile-copy .role {
@@ -679,22 +694,29 @@ details p {
   }
   .cardhead .ballot {
     order: 0;
-    width: 60px;
-    height: 70px;
+    width: 120px;
+    height: 118px;
   }
   .cardhead .ballot strong {
-    font-size: 42px;
+    font-size: 84px;
+  }
+  .cardhead .ballot span {
+    font-size: 15px;
   }
   .cardtitles {
     flex-basis: 150px;
   }
   .profile-hero-top .ballot {
     order: -1;
-    width: 76px;
-    height: 88px;
+    width: 184px;
+    height: 158px;
+    margin-bottom: 8px;
   }
   .profile-hero-top .ballot strong {
-    font-size: 54px;
+    font-size: 112px;
+  }
+  .profile-hero-top .ballot span {
+    font-size: 21px;
   }
   .profile-titles {
     flex-basis: 100%;
