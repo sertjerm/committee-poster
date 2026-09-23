@@ -110,9 +110,17 @@ h1 {
 }
 .candidate-group-title h2 {
   margin: 0;
-  font-size: 30px;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 5px 20px 7px;
+  border-radius: 7px;
+  background: var(--green);
+  color: white;
+  font-size: 31px;
+  font-weight: 700;
   line-height: 1.35;
+  box-shadow: 0 7px 18px rgba(18, 63, 53, 0.14);
 }
 .candidates {
   display: grid;
@@ -307,7 +315,18 @@ footer {
   min-width: 0;
 }
 .profile-titles .eyebrow {
-  margin-bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  margin-bottom: 16px;
+  padding: 4px 14px 6px;
+  border-radius: 5px;
+  background: var(--green);
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.35;
 }
 .profile-titles .degree {
   font-size: 19px;
@@ -620,7 +639,7 @@ details p {
     font-size: 34px;
   }
   .profile-copy .eyebrow {
-    font-size: 12px;
+    font-size: 14px;
   }
   .profile-copy h2 {
     font-size: 21px;
@@ -695,7 +714,9 @@ details p {
     margin-bottom: 16px;
   }
   .candidate-group-title h2 {
-    font-size: 27px;
+    min-height: 43px;
+    padding: 5px 16px 6px;
+    font-size: 26px;
   }
   .candidate {
     grid-template-columns: 1fr;
