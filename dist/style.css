@@ -850,3 +850,38 @@ details p {
     grid-template-columns: 1fr;
   }
 }
+
+/* The candidate information needs a generous reading width; use equal rows. */
+@media (min-width: 801px) {
+  .candidates {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .candidate {
+    grid-template-columns: 32% 68%;
+  }
+  .portrait {
+    height: 330px;
+    min-height: 330px;
+  }
+  .portrait img {
+    object-position: center 24%;
+  }
+  .cardbody {
+    min-height: 330px;
+    padding: 32px 36px;
+  }
+  .cardhead .ballot {
+    width: 144px;
+    height: 140px;
+  }
+  .cardhead .ballot strong {
+    font-size: 100px;
+  }
+  .cardhead .ballot span {
+    font-size: 17px;
+  }
+  .cardbody h2 {
+    font-size: 29px;
+  }
+}
