@@ -972,7 +972,7 @@ details p {
   line-height: 1.35;
 }
 .profile-titles .eyebrow::before {
-  content: 'ผู้สมัครกรรมการ · 2570';
+  content: 'ผู้สมัครกรรมการ สายวิชาการ · 2570';
   color: var(--gold);
   font-size: 16px;
   font-weight: 700;
@@ -999,5 +999,41 @@ details p {
   }
   .profile-titles .eyebrow::after {
     font-size: 27px;
+  }
+}
+
+/* The role belongs with the ballot number, while the heading stays restrained. */
+.profile-titles .eyebrow::after {
+  content: none;
+}
+.profile-hero-top .ballot {
+  height: 236px;
+  justify-content: flex-start;
+  padding-top: 16px;
+}
+.profile-hero-top .ballot strong {
+  line-height: .86;
+}
+.profile-hero-top .ballot strong::after {
+  content: 'สายวิชาการ';
+  display: block;
+  margin-top: 7px;
+  color: var(--green);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+.portrait,
+.profile-photo {
+  background: var(--paper);
+}
+@media (max-width: 540px) {
+  .profile-hero-top .ballot {
+    height: 172px;
+    padding-top: 12px;
+  }
+  .profile-hero-top .ballot strong::after {
+    margin-top: 6px;
+    font-size: 16px;
   }
 }
