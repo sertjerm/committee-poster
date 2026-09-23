@@ -515,6 +515,10 @@ details p {
 .download {
   padding-top: 32px;
 }
+.download-pending {
+  color: var(--muted);
+  font-size: 16px;
+}
 .next {
   background: var(--green);
   color: white;
