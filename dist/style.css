@@ -809,3 +809,44 @@ details p {
     transition: none !important;
   }
 }
+
+/* Candidate cards: equal visual weight on desktop, a clear reading order below it. */
+@media (min-width: 1180px) {
+  .candidates {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .candidate {
+    grid-template-columns: 1fr;
+  }
+  .portrait {
+    min-height: 0;
+    height: 300px;
+  }
+  .portrait img {
+    object-position: center 24%;
+  }
+  .cardbody {
+    min-height: 330px;
+    padding: 24px;
+  }
+  .cardhead .ballot {
+    width: 118px;
+    height: 116px;
+  }
+  .cardhead .ballot strong {
+    font-size: 82px;
+  }
+  .cardhead .ballot span {
+    font-size: 15px;
+  }
+  .cardbody h2 {
+    font-size: 23px;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1179px) {
+  .candidates {
+    grid-template-columns: 1fr;
+  }
+}
