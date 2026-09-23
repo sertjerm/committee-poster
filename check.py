@@ -1,6 +1,6 @@
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote
+from urllib.parse import unquote, urlsplit
 
 root = Path(__file__).parent / 'dist'
 
@@ -12,8 +12,11 @@ class Check(HTMLParser):
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         for k in ['src', 'href']:
-            v = a.get(k, '').split('#')[0]
-            if v and not v.startswith(('data:', 'http:', 'https:')):
+            raw = a.get(k, '')
+            if raw.startswith(('data:', 'http:', 'https:')):
+                continue
+            v = urlsplit(raw).path
+            if v:
                 target = (self.file_path.parent / unquote(v)).resolve()
                 assert target.is_file(), f"Missing file: {v} referenced in {self.file_path}"
 
