@@ -96,6 +96,24 @@ h1 {
   font-size: 17px;
   color: var(--muted);
 }
+.candidate-directory {
+  margin-top: 14px;
+}
+.candidate-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 0 0 22px;
+}
+.candidate-group-title .eyebrow {
+  margin: 0;
+}
+.candidate-group-title h2 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.35;
+}
 .candidates {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
@@ -574,6 +592,9 @@ details p {
   .candidates {
     grid-template-columns: 1fr;
   }
+  .candidate-group-title {
+    margin-bottom: 18px;
+  }
   .portrait {
     min-height: 320px;
   }
@@ -668,6 +689,13 @@ details p {
   }
   .intro-text {
     font-size: 15px;
+  }
+  .candidate-group-title {
+    display: block;
+    margin-bottom: 16px;
+  }
+  .candidate-group-title h2 {
+    font-size: 27px;
   }
   .candidate {
     grid-template-columns: 1fr;

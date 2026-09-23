@@ -175,11 +175,11 @@ def generate_site(target_dir: Path, asset_prefix: str = '', is_new_v1: bool = Fa
     cards = ''
     for d in D:
         mock_badge = '<span class="mock-badge">ข้อมูลตัวอย่าง</span>' if d['mock'] else ''
-        cards += f'''<a class="candidate" href="{d['id']}.html"><div class="portrait"><img src="{asset_prefix}assets/{d['id']}.jpg" alt="{d['degree']}{d['name']}" width="550" height="740"><span class="portrait-label">สายวิชาการ</span></div><div class="cardbody">{mock_badge}<div class="cardhead"><div class="cardtitles"><p class="degree">{d['degree']}</p><h2>{d['name']}</h2></div><span class="ballot" aria-label="หมายเลขผู้สมัคร {d['number']}"><span>หมายเลข</span><strong>{d['number']}</strong></span></div><p>{d['role']}<br>{d['role2']}</p><span class="read">ดูประวัติและแนวคิด <span aria-hidden="true">↗</span></span></div></a>'''
+        cards += f'''<a class="candidate" href="{d['id']}.html"><div class="portrait"><img src="{asset_prefix}assets/{d['id']}.jpg" alt="{d['degree']}{d['name']}" width="550" height="740"></div><div class="cardbody">{mock_badge}<div class="cardhead"><div class="cardtitles"><p class="degree">{d['degree']}</p><h2>{d['name']}</h2></div><span class="ballot" aria-label="หมายเลขผู้สมัคร {d['number']}"><span>หมายเลข</span><strong>{d['number']}</strong></span></div><p>{d['role']}<br>{d['role2']}</p><span class="read">ดูประวัติและแนวคิด <span aria-hidden="true">↗</span></span></div></a>'''
 
     (target_dir / 'index.html').write_text(
         head('รู้จักผู้สมัครกรรมการ สอ.มก. 2570', 'ประวัติ ประสบการณ์ และแนวคิดในการทำงานของผู้สมัครกรรมการ สอ.มก. ประจำปี 2570', asset_prefix) +
-        f'''<main id="main"><section class="intro"><p class="eyebrow">การสรรหากรรมการดำเนินการ · 2570</p><h1>รู้จักผู้สมัคร<br><span>ผ่านประสบการณ์และแนวคิด</span></h1><p class="intro-text">สหกรณ์ออมทรัพย์มหาวิทยาลัยเกษตรศาสตร์ จำกัด</p></section><section class="candidates" id="candidates" aria-label="ผู้สมัคร">{cards}</section><div class="closing"><span>สมาชิกก้าวหน้า</span><strong>สอ.มก.มั่นคง</strong></div></main>''' +
+        f'''<main id="main"><section class="intro"><p class="eyebrow">การสรรหากรรมการดำเนินการ · 2570</p><h1>รู้จักผู้สมัคร<br><span>ผ่านประสบการณ์และแนวคิด</span></h1><p class="intro-text">สหกรณ์ออมทรัพย์มหาวิทยาลัยเกษตรศาสตร์ จำกัด</p></section><section class="candidate-directory" id="candidates" aria-labelledby="candidate-group-title"><div class="candidate-group-title"><p class="eyebrow">ผู้สมัครกรรมการ</p><h2 id="candidate-group-title">สายวิชาการ</h2></div><div class="candidates">{cards}</div></section><div class="closing"><span>สมาชิกก้าวหน้า</span><strong>สอ.มก.มั่นคง</strong></div></main>''' +
         footer,
         encoding='utf-8'
     )
