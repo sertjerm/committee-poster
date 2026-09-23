@@ -1,0 +1,41 @@
+Use case: infographic-diagram
+Asset type: vertical Thai candidate infographic, 1024x1536
+Input-image roles: Image 1 is the original portrait of ผศ.ดร.รังสรรค์ ปีติปัญญา and is the ONLY identity source. Image 2 is only the approved new-style infographic reference. Do not edit, trace, reuse, or copy Image 2 pixels; generate the entire design anew from Image 1.
+
+Design: Match the approved new infographic visual system: airy green-white-gold palette; asymmetric dark-green curved upper-left header with a thin gold edge; original candidate portrait in the upper-right; generous white left text column; soft, crisp campus-lake backdrop; leaf accents; curved green-and-gold transition above the policy cards; and a compact lower 2x2 grid of rounded policy cards. This must be the new infographic design, not the former v3 layout.
+
+Ballot number: directly beneath the header in the left white column, put “หมายเลข” in dark green above a very large digit 4. The digit is approximately 170px high at 1024px canvas width, deep green with a bold warm-gold outline, open white background, and a thin gold rule beneath. No box around it. The number must be highly noticeable without overlapping the portrait or name.
+
+Subject: Preserve the exact face, age, hair, glasses, skin tone, pose, and black KUSCC polo from Image 1. Do not cover the face or shirt.
+Typography: Use crisp Thai sans serif. Thai diacritics must be complete and legible. Preserve “ปีติปัญญา” and “สอ.มก.” exactly. Do not crop, omit, invent, paraphrase, or change any text. In policy 03, retain all bullets, at a readable smaller body size.
+
+Text (verbatim; all and only this text):
+รู้จักผู้สมัครกรรมการ สอ.มก.
+ประจำปี 2570
+หมายเลข 4
+ผศ.ดร.รังสรรค์ ปีติปัญญา
+ศึกษาและทำงานด้านสหกรณ์มากกว่า 40 ปี
+อดีตรองอธิการบดี มก.
+อดีตหัวหน้าภาควิชาสหกรณ์
+อดีตรองประธานกรรมการ สอ.มก.
+การศึกษา
+ปริญญาเอก เศรษฐศาสตร์เกษตร
+Tokyo University of Agriculture, Japan
+ประสบการณ์ทำงานใน สอ.มก.
+• ประธานบริหารความเสี่ยง
+• ประธานการศึกษาและประชาสัมพันธ์
+• ประธานการการลงทุน
+• กรรมการบริหาร
+แนวคิดในการทำงาน
+01 ปันผลและเฉลี่ยคืน
+มุ่งรักษาให้อยู่ระดับสูงอย่างต่อเนื่อง
+02 บริการและสวัสดิการ
+ตอบโจทย์สมาชิกและสังคมสูงวัย
+03 แก้ปัญหาหนี้สิน
+• รวม ลดภาระการชำระหนี้ และปรับระยะเวลาและวิธีการชำระหนี้
+• ทำโครงการช่วยเหลือสมาชิกที่มีปัญหาหนี้สินรุนแรง
+• ช่วยเหลือผู้ค้ำอย่างเป็นรูปธรรม
+04 ลงทุนอย่างรอบคอบ
+สร้างผลตอบแทนที่ดีและมั่นคง
+
+Constraints: No QR code, no election date other than 2570, no slogan, no disclaimer, no annotations, and no additional text. Never use the phrase “ลดหนี้”.

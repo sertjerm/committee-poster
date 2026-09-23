@@ -1,0 +1,37 @@
+Use case: infographic-diagram
+Asset type: vertical Thai candidate infographic, 1024x1536
+Input-image roles: Image 1 is the original portrait of ผศ.น.สพ.ดร.ธวัชชัย ศักดิ์ภู่อร่าม and is the ONLY identity source. Image 2 is only the approved new-style infographic reference. Do not edit, trace, reuse, or copy Image 2 pixels; generate the entire design anew from Image 1.
+
+Design: Match the approved new infographic visual system: airy green-white-gold palette; asymmetric dark-green curved upper-left header with a thin gold edge; original candidate portrait in the upper-right; generous white left text column; soft, crisp campus-lake backdrop; leaf accents; curved green-and-gold transition above the policy cards; and a compact lower 2x2 grid of rounded policy cards. This must be the new infographic design, not the former v3 layout.
+
+Ballot number: directly beneath the header in the left white column, put “หมายเลข” in dark green above a very large digit 3. The digit is approximately 170px high at 1024px canvas width, deep green with a bold warm-gold outline, open white background, and a thin gold rule beneath. No box around it. The number must be highly noticeable without overlapping the portrait or name.
+
+Subject: Preserve the exact face, age, hair, glasses, skin tone, pose, and black KUSCC polo from Image 1. Do not cover the face or shirt.
+Typography: Use crisp Thai sans serif. Thai diacritics must be complete and legible. Preserve “ศักดิ์ภู่อร่าม” and “สอ.มก.” exactly. Do not crop, omit, invent, paraphrase, or change any text.
+
+Text (verbatim; all and only this text):
+รู้จักผู้สมัครกรรมการ สอ.มก.
+ประจำปี 2570
+หมายเลข 3
+ผศ.น.สพ.ดร.ธวัชชัย ศักดิ์ภู่อร่าม
+อดีตคณบดี คณะสัตวแพทยศาสตร์
+รองประธานกรรมการ สอ.มก.
+การศึกษา
+สพ.บ. มหาวิทยาลัยเกษตรศาสตร์
+Ph.D. Azabu University, Japan
+ประสบการณ์ทำงานใน สอ.มก.
+• ประธานบริหารความเสี่ยง
+• กรรมการบริหาร
+• กรรมการเงินกู้
+• กรรมการศึกษาและประชาสัมพันธ์
+แนวคิดในการทำงาน
+01 บริหารความเสี่ยงทั่วทั้งองค์กร
+เพื่อความมั่นคงยั่งยืนของ สอ.มก. และสมาชิก
+02 พัฒนาระบบ IT & สินเชื่อ
+สะดวกรวดเร็ว พร้อมเพิ่มการป้องกันภัยไซเบอร์
+03 เงินทุนสำรองมั่นคง & ธรรมาภิบาล
+ตามเกณฑ์มาตรฐานกฎหมายและยึดมั่นจรรยาบรรณ
+04 ส่งเสริมความรู้สมาชิก
+จัดสัมมนาพัฒนาความรู้เศรษฐกิจ สังคม สาธารณสุขต่อเนื่อง
+
+Constraints: No QR code, no election date other than 2570, no slogan, no disclaimer, no annotations, and no additional text.
