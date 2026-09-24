@@ -1052,3 +1052,313 @@ details p {
     font-size: 16px;
   }
 }
+
+
+/* =========================================================
+   Responsive layout refinement — 2026-09-24
+   Keeps candidate information visually equal while improving
+   reading order across phone, tablet, desktop and wide screens.
+   ========================================================= */
+
+.candidates {
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 2.4vw, 28px);
+}
+
+.candidate {
+  grid-template-columns: 1fr;
+  border-radius: 20px;
+}
+
+.cardhead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: clamp(12px, 1.6vw, 18px);
+  margin-bottom: 16px;
+}
+
+.cardtitles {
+  min-width: 0;
+}
+
+.cardbody h2 {
+  font-size: clamp(23px, 2.2vw, 30px);
+  line-height: 1.28;
+  text-wrap: balance;
+}
+
+.cardbody .degree {
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.4;
+  margin-bottom: 3px;
+}
+
+.cardhead .ballot {
+  width: clamp(72px, 8vw, 92px);
+  height: clamp(72px, 8vw, 92px);
+  border-radius: 16px;
+}
+
+.cardhead .ballot span {
+  font-size: clamp(10px, 1vw, 13px);
+  line-height: 1;
+}
+
+.cardhead .ballot strong {
+  font-size: clamp(42px, 5vw, 58px);
+  line-height: .92;
+}
+
+.cardhead .ballot::after {
+  height: 3px;
+  bottom: 9px;
+}
+
+.portrait {
+  min-height: 0;
+  background: #f0f1ef;
+}
+
+.portrait img {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.cardbody {
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  header {
+    padding-inline: 18px;
+  }
+
+  main {
+    margin-inline: 16px;
+  }
+
+  .intro {
+    padding-top: 34px;
+  }
+
+  .candidate {
+    border-radius: 18px;
+  }
+
+  .portrait {
+    height: clamp(280px, 82vw, 390px);
+  }
+
+  .cardbody {
+    min-height: 0;
+    padding: 22px 20px 20px;
+  }
+
+  .cardhead {
+    grid-template-columns: minmax(0, 1fr) 70px;
+    gap: 12px;
+  }
+
+  .cardhead .ballot {
+    width: 70px;
+    height: 70px;
+    border-radius: 14px;
+  }
+
+  .cardhead .ballot strong {
+    font-size: 42px;
+  }
+
+  .cardbody p:not(.degree) {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .read {
+    margin-top: 18px;
+    padding-top: 16px;
+  }
+
+  .profile-hero-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 14px;
+  }
+
+  .profile-titles {
+    min-width: 0;
+  }
+
+  .profile-hero-top .ballot {
+    order: initial;
+    width: 92px;
+    height: 118px;
+    margin: 0;
+    padding-top: 10px;
+  }
+
+  .profile-hero-top .ballot strong {
+    font-size: 68px;
+  }
+
+  .profile-hero-top .ballot > span {
+    font-size: 13px;
+  }
+
+  .profile-copy h1 {
+    font-size: clamp(30px, 9vw, 38px);
+    line-height: 1.25;
+  }
+
+  .section-nav {
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 24px;
+    white-space: nowrap;
+    scrollbar-width: thin;
+  }
+}
+
+@media (max-width: 380px) {
+  main {
+    margin-inline: 12px;
+  }
+
+  .cardbody {
+    padding: 19px 16px;
+  }
+
+  .cardhead {
+    grid-template-columns: minmax(0, 1fr) 62px;
+    gap: 10px;
+  }
+
+  .cardhead .ballot {
+    width: 62px;
+    height: 62px;
+  }
+
+  .cardhead .ballot strong {
+    font-size: 37px;
+  }
+
+  .cardbody h2 {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1179px) {
+  .candidates {
+    grid-template-columns: 1fr;
+  }
+
+  .candidate {
+    grid-template-columns: minmax(230px, 34%) minmax(0, 66%);
+    border-radius: 18px;
+  }
+
+  .portrait {
+    height: auto;
+    min-height: 320px;
+  }
+
+  .cardbody {
+    min-height: 320px;
+    padding: clamp(24px, 3vw, 32px);
+  }
+
+  .cardhead {
+    grid-template-columns: minmax(0, 1fr) clamp(78px, 9vw, 94px);
+  }
+
+  .cardhead .ballot {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+}
+
+@media (min-width: 1180px) {
+  .candidates {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .candidate {
+    grid-template-columns: 1fr;
+    grid-template-rows: 300px 1fr;
+    border-radius: 18px;
+  }
+
+  .portrait {
+    height: 300px;
+    min-height: 0;
+  }
+
+  .cardbody {
+    min-height: 338px;
+    padding: 24px;
+  }
+
+  .cardhead {
+    grid-template-columns: minmax(0, 1fr) 78px;
+    gap: 13px;
+  }
+
+  .cardhead .ballot {
+    width: 78px;
+    height: 78px;
+  }
+
+  .cardhead .ballot strong {
+    font-size: 48px;
+  }
+
+  .cardhead .ballot span {
+    font-size: 11px;
+  }
+
+  .cardbody h2 {
+    font-size: clamp(22px, 1.65vw, 26px);
+  }
+
+  .cardbody p:not(.degree) {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+}
+
+@media (min-width: 1440px) {
+  .candidates {
+    gap: 28px;
+  }
+
+  .candidate {
+    grid-template-rows: 330px 1fr;
+  }
+
+  .portrait {
+    height: 330px;
+  }
+
+  .cardbody {
+    padding: 28px;
+  }
+
+  .cardhead {
+    grid-template-columns: minmax(0, 1fr) 86px;
+    gap: 16px;
+  }
+
+  .cardhead .ballot {
+    width: 86px;
+    height: 86px;
+  }
+
+  .cardhead .ballot strong {
+    font-size: 54px;
+  }
+}
