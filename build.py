@@ -244,4 +244,22 @@ generate_site(out, asset_prefix='', is_new_v1=False)
 # 2. Generate /v1/ site (ของใหม่)
 generate_site(out / 'v1', asset_prefix='../', is_new_v1=True)
 
+# Make v1 the public entry point while retaining the other versions at their
+# existing URLs for comparison and backwards compatibility.
+(out / 'index.html').write_text('''<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="0; url=v1/index.html">
+  <link rel="canonical" href="https://sertjerm.github.io/committee-poster/v1/">
+  <title>รู้จักผู้สมัครกรรมการ สอ.มก. 2570</title>
+</head>
+<body>
+  <p>กำลังเปิดหน้าเว็บไซต์หลัก… <a href="v1/index.html">ไปยังเว็บไซต์</a></p>
+  <script>location.replace('v1/index.html');</script>
+</body>
+</html>
+''', encoding='utf-8')
+
 print('Build completed successfully.')
