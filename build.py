@@ -181,10 +181,10 @@ def head(title, desc, prefix='', is_new_v1=False):
 
 def get_footer(is_new_v1=False):
     if is_new_v1:
-        toggle_link = 'เปรียบเทียบ: <a href="../index.html" style="text-decoration:underline;">หน้าแรกเดิม ↗</a> | <a href="../v2/index.html" style="text-decoration:underline;">v2 (ChatGPT) ↗</a>'
+        footer_text = 'ผู้สมัครกรรมการ สายวิชาการ · ประจำปี 2570'
     else:
-        toggle_link = 'เปรียบเทียบ: <a href="v1/index.html" style="text-decoration:underline;">v1 (ตราเขียวทอง) ↗</a> | <a href="v2/index.html" style="text-decoration:underline;">v2 (ChatGPT) ↗</a>'
-    return f'<footer><span>ผู้สมัครกรรมการ สายวิชาการ · ประจำปี 2570 · {toggle_link}</span><span>ข้อมูลเรียบเรียงจากประวัติและแนวคิดที่ผู้สมัครส่งมา</span></footer></body></html>'
+        footer_text = 'ผู้สมัครกรรมการ สายวิชาการ · ประจำปี 2570 · เปรียบเทียบ: <a href="v1/index.html" style="text-decoration:underline;">v1 (ตราเขียวทอง) ↗</a> | <a href="v2/index.html" style="text-decoration:underline;">v2 (ChatGPT) ↗</a>'
+    return f'<footer><span>{footer_text}</span><span>ข้อมูลเรียบเรียงจากประวัติและแนวคิดที่ผู้สมัครส่งมา</span></footer></body></html>'
 
 def generate_site(target_dir: Path, asset_prefix: str = '', is_new_v1: bool = False):
     target_dir.mkdir(parents=True, exist_ok=True)
