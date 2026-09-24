@@ -19,6 +19,16 @@ class Check(HTMLParser):
             if v:
                 target = (self.file_path.parent / unquote(v)).resolve()
                 assert target.is_file(), f"Missing file: {v} referenced in {self.file_path}"
+        srcset = a.get('srcset', '')
+        if srcset:
+            for entry in srcset.split(','):
+                entry = entry.strip().split()[0]
+                if entry.startswith(('data:', 'http:', 'https:')):
+                    continue
+                v = urlsplit(entry).path
+                if v:
+                    target = (self.file_path.parent / unquote(v)).resolve()
+                    assert target.is_file(), f"Missing file: {v} referenced in {self.file_path}"
 
 for p in sorted(root.glob('**/*.html')):
     s = p.read_text(encoding='utf-8')
