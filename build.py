@@ -1,5 +1,5 @@
 from pathlib import Path
-import re, urllib.request, html
+import re, urllib.request, html, shutil
 from PIL import Image
 
 root = Path(__file__).parent
@@ -128,7 +128,7 @@ D = [
         name='รังสรรค์ ปีติปัญญา',
         role='อดีตรองอธิการบดี มก.',
         role2='อดีตรองประธานกรรมการ สอ.มก.',
-        lead='ศึกษาและทำงานด้านสหกรณ์\nมากกว่า 40 ปี',
+        lead='ทำงานด้านสหกรณ์\nมากกว่า 40 ปี',
         intro='ประสบการณ์ด้านเศรษฐศาสตร์สหกรณ์ งานบริหารมหาวิทยาลัย และการทำงานกับองค์กรสหกรณ์มาอย่างยาวนาน',
         edu=[
             ('ปริญญาตรี', 'เศรษฐศาสตร์สหกรณ์ · มหาวิทยาลัยเกษตรศาสตร์'),
@@ -140,7 +140,7 @@ D = [
             ('สหกรณ์', 'งานบริหารและพัฒนาสหกรณ์', 'รองประธาน สอ.มก. · รองประธานชุมนุมสหกรณ์ออมทรัพย์แห่งประเทศไทย · กรรมการกองทุนพัฒนาสหกรณ์'),
         ],
         experience=[
-            'ศึกษาและทำงานด้านสหกรณ์มากกว่า 40 ปี',
+            'ทำงานด้านสหกรณ์มากกว่า 40 ปี',
             'เขียนหนังสือและบทความด้านสหกรณ์จำนวนมาก',
         ],
         policies_original=[
@@ -161,9 +161,30 @@ D = [
             ('แก้ปัญหาหนี้สิน', 'รวมและลดหนี้ ปรับระยะเวลาและวิธีชำระหนี้ พร้อมโครงการช่วยเหลือสมาชิกที่มีปัญหาหนี้สินรุนแรงและผู้ค้ำอย่างเป็นรูปธรรม'),
             ('ลงทุนอย่างรอบคอบ', 'บริหารเงินและลงทุนด้วยความระมัดระวัง เพื่อสร้างผลตอบแทนที่ดีและมั่นคง'),
         ],
-        bio='ข้าราชการเกษียณ ภาควิชาสหกรณ์ คณะเศรษฐศาสตร์ มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตบางเขน ศึกษาและทำงานด้านสหกรณ์มามากกว่า 40 ปี.',
+        bio='ข้าราชการเกษียณ ภาควิชาสหกรณ์ คณะเศรษฐศาสตร์ มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตบางเขน ทำงานด้านสหกรณ์มามากกว่า 40 ปี.',
     ),
 ]
+
+# Approved campaign artwork.  Keep the filenames stable so the published
+# gallery can be refreshed simply by replacing the source files in /final.
+MEDIA = [
+    ('ปกหลัง-ดีไซน์เดิม-2026-09-21.png', 'โปสเตอร์นโยบาย ดีไซน์เดิม'),
+    ('ปกหลัง-ดีไซน์ใหม่-2026-09-21.png', 'โปสเตอร์นโยบาย ดีไซน์ใหม่'),
+    ('020304-หน้าตรง-กากบาทแดง-qr-final.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน'),
+    ('poster-กอดอก-พร้อม-QR-20260923-v4.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน แบบกอดอก'),
+    ('thawiwat-infographic-v5.png', 'อินโฟกราฟิก หมายเลข 2 · ทวีวัฒน์ ทัศนวัฒน์'),
+    ('thawatchai-infographic-v6.png', 'อินโฟกราฟิก หมายเลข 3 · ธวัชชัย ศักดิ์ภู่อร่าม'),
+    ('rangsarn-infographic-v10-reference-layout-20260924.png', 'อินโฟกราฟิก หมายเลข 4 · รังสรรค์ ปีติปัญญา'),
+]
+
+final_artwork = root.parent / 'exports2026-09-25' / 'final'
+media_dir = out / 'assets' / 'media'
+media_dir.mkdir(parents=True, exist_ok=True)
+for filename, _ in MEDIA:
+    source = final_artwork / filename
+    if not source.is_file():
+        raise FileNotFoundError(f'Missing approved artwork: {source}')
+    shutil.copy2(source, media_dir / filename)
 
 # Ensure WebP assets exist
 for d in D:
@@ -174,10 +195,10 @@ for d in D:
             im.save(webp_file, 'WEBP', quality=85, method=6)
 
 def head(title, desc, prefix='', is_new_v1=False):
-    css_file = f"{prefix}style-v1.css?v=1" if is_new_v1 else f"{prefix}style.css?v=7"
+    css_file = f"{prefix}style-v1.css?v=2" if is_new_v1 else f"{prefix}style.css?v=8"
     all_link_content = '<span class="all-link-text">รู้จักผู้สมัคร</span> <span aria-hidden="true">↗</span>' if is_new_v1 else 'รู้จักผู้สมัคร <span aria-hidden="true">↗</span>'
     version_badge = '<span class="version-badge" title="เวอร์ชันปรับปรุงเลย์เอาต์ใหม่">v1 (ใหม่)</span>' if is_new_v1 else ''
-    return f'''<!doctype html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title><meta name="description" content="{desc}"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23123f35'/%3E%3Cpath d='M8 23V10h4v13m4 0V6h4v17m4 0V13h3v10' stroke='%23d9be7c' stroke-width='2'/%3E%3C/svg%3E"><link rel="stylesheet" href="{prefix}fonts.css"><link rel="stylesheet" href="{css_file}"></head><body><a class="skip" href="#main">ข้ามไปเนื้อหา</a><header><a class="brand" href="index.html"><span class="brandmark">สอ.มก.</span><span>สมาชิกก้าวหน้า<small>สอ.มก.มั่นคง {version_badge}</small></span></a><a class="all-link" href="index.html#candidates">{all_link_content}</a></header>'''
+    return f'''<!doctype html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title><meta name="description" content="{desc}"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23123f35'/%3E%3Cpath d='M8 23V10h4v13m4 0V6h4v17m4 0V13h3v10' stroke='%23d9be7c' stroke-width='2'/%3E%3C/svg%3E"><link rel="stylesheet" href="{prefix}fonts.css"><link rel="stylesheet" href="{css_file}"></head><body><a class="skip" href="#main">ข้ามไปเนื้อหา</a><header><a class="brand" href="index.html"><span class="brandmark">สอ.มก.</span><span>สมาชิกก้าวหน้า<small>สอ.มก.มั่นคง {version_badge}</small></span></a><nav class="header-links" aria-label="เมนูหลัก"><a class="all-link" href="media.html">สื่อทั้งหมด</a><a class="all-link" href="index.html#candidates">{all_link_content}</a></nav></header>'''
 
 def get_footer(is_new_v1=False):
     if is_new_v1:
@@ -204,6 +225,17 @@ def generate_site(target_dir: Path, asset_prefix: str = '', is_new_v1: bool = Fa
         encoding='utf-8'
     )
 
+    gallery_items = ''.join(
+        f'''<a class="media-card" href="{asset_prefix}assets/media/{filename}" target="_blank" rel="noopener"><img src="{asset_prefix}assets/media/{filename}" alt="{label}" loading="lazy" decoding="async"><span>{label}</span></a>'''
+        for filename, label in MEDIA
+    )
+    (target_dir / 'media.html').write_text(
+        head('สื่อประชาสัมพันธ์ทั้งหมด | ผู้สมัครกรรมการ สอ.มก. 2570', 'รวมโปสเตอร์และอินโฟกราฟิกผู้สมัครกรรมการ สอ.มก. ประจำปี 2570', asset_prefix, is_new_v1=is_new_v1) +
+        f'''<main id="main"><section class="media-intro"><p class="eyebrow">สื่อประชาสัมพันธ์ · 2570</p><h1>โปสเตอร์และ<br><span>อินโฟกราฟิกทั้งหมด</span></h1><p>เลือกดูภาพเต็มหรือดาวน์โหลดไฟล์สำหรับเผยแพร่</p></section><section class="media-grid" aria-label="โปสเตอร์และอินโฟกราฟิก">{gallery_items}</section></main>''' +
+        get_footer(is_new_v1=is_new_v1),
+        encoding='utf-8'
+    )
+
     for d in D:
         policy_list = d.get('policies_v1_new', d['policies']) if is_new_v1 else d.get('policies_original', d['policies'])
         policies = ''.join(f'<article class="policy"><span class="number">0{i+1}</span><div><h3>{h}</h3><p>{p}</p></div></article>' for i, (h, p) in enumerate(policy_list))
@@ -217,9 +249,9 @@ def generate_site(target_dir: Path, asset_prefix: str = '', is_new_v1: bool = Fa
             other_links = ''.join(f'<a href="{o["id"]}.html"><span class="next-badge">หมายเลข {o["number"]}</span> {o["degree"]}{o["name"]} <span aria-hidden="true">↗</span></a>' for o in others)
         mock_notice = '<div class="mock-notice"><strong>ข้อมูลตัวอย่าง</strong><span>ประวัติ การศึกษา และแนวคิด ใช้ข้อมูลของ อ.ทวีวัฒน์ ทัศนวัฒน์ ชั่วคราว ระหว่างรอข้อมูลจริงของ อ.ธวัชชัย</span></div>' if d['mock'] else ''
         infographic_file = {
-            'thawiwat': 'thawiwat-infographic-v5.png',
-            'thawatchai': 'thawatchai-infographic-v6.png',
-            'rangsarn': 'rangsarn-infographic-v8.png',
+            'thawiwat': 'media/thawiwat-infographic-v5.png',
+            'thawatchai': 'media/thawatchai-infographic-v6.png',
+            'rangsarn': 'media/rangsarn-infographic-v10-reference-layout-20260924.png',
         }.get(d['id'], f"{d['id']}-infographic-v4.png")
         infographic_label = 'ดาวน์โหลดอินโฟกราฟิกตัวอย่าง' if d['mock'] else 'ดาวน์โหลดอินโฟกราฟิก'
         download = f'<div class="download"><a class="button" href="{asset_prefix}assets/{infographic_file}" download>{infographic_label} <span aria-hidden="true">↓</span></a></div>'
