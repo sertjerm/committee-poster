@@ -195,10 +195,9 @@ for d in D:
             im.save(webp_file, 'WEBP', quality=85, method=6)
 
 def head(title, desc, prefix='', is_new_v1=False):
-    css_file = f"{prefix}style-v1.css?v=2" if is_new_v1 else f"{prefix}style.css?v=8"
-    all_link_content = '<span class="all-link-text">รู้จักผู้สมัคร</span> <span aria-hidden="true">↗</span>' if is_new_v1 else 'รู้จักผู้สมัคร <span aria-hidden="true">↗</span>'
+    css_file = f"{prefix}style-v1.css?v=3" if is_new_v1 else f"{prefix}style.css?v=9"
     version_badge = '<span class="version-badge" title="เวอร์ชันปรับปรุงเลย์เอาต์ใหม่">v1 (ใหม่)</span>' if is_new_v1 else ''
-    return f'''<!doctype html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title><meta name="description" content="{desc}"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23123f35'/%3E%3Cpath d='M8 23V10h4v13m4 0V6h4v17m4 0V13h3v10' stroke='%23d9be7c' stroke-width='2'/%3E%3C/svg%3E"><link rel="stylesheet" href="{prefix}fonts.css"><link rel="stylesheet" href="{css_file}"></head><body><a class="skip" href="#main">ข้ามไปเนื้อหา</a><header><a class="brand" href="index.html"><span class="brandmark">สอ.มก.</span><span>สมาชิกก้าวหน้า<small>สอ.มก.มั่นคง {version_badge}</small></span></a><nav class="header-links" aria-label="เมนูหลัก"><a class="all-link" href="media.html">สื่อทั้งหมด</a><a class="all-link" href="index.html#candidates">{all_link_content}</a></nav></header>'''
+    return f'''<!doctype html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title><meta name="description" content="{desc}"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23123f35'/%3E%3Cpath d='M8 23V10h4v13m4 0V6h4v17m4 0V13h3v10' stroke='%23d9be7c' stroke-width='2'/%3E%3C/svg%3E"><link rel="stylesheet" href="{prefix}fonts.css"><link rel="stylesheet" href="{css_file}"></head><body><a class="skip" href="#main">ข้ามไปเนื้อหา</a><header><a class="brand" href="index.html"><span class="brandmark">สอ.มก.</span><span>สมาชิกก้าวหน้า<small>สอ.มก.มั่นคง {version_badge}</small></span></a></header>'''
 
 def get_footer(is_new_v1=False):
     if is_new_v1:
@@ -225,13 +224,18 @@ def generate_site(target_dir: Path, asset_prefix: str = '', is_new_v1: bool = Fa
         encoding='utf-8'
     )
 
-    gallery_items = ''.join(
-        f'''<a class="media-card" href="{asset_prefix}assets/media/{filename}" target="_blank" rel="noopener"><img src="{asset_prefix}assets/media/{filename}" alt="{label}" loading="lazy" decoding="async"><span>{label}</span></a>'''
-        for filename, label in MEDIA
+    slides = ''.join(
+        f'''<figure class="media-slide"{' hidden' if i else ''}><a href="{asset_prefix}assets/media/{filename}" target="_blank" rel="noopener"><img src="{asset_prefix}assets/media/{filename}" alt="{label}"{' fetchpriority="high"' if i == 0 else ' loading="lazy"'} decoding="async"></a><figcaption>{label}</figcaption></figure>'''
+        for i, (filename, label) in enumerate(MEDIA)
     )
+    dots = ''.join(
+        f'''<button class="media-dot" type="button" aria-label="แสดงภาพที่ {i + 1}: {label}" aria-current="{'true' if i == 0 else 'false'}"></button>'''
+        for i, (_, label) in enumerate(MEDIA)
+    )
+    slider_script = '''<script>(() => { const root = document.querySelector('.media-slideshow'); if (!root) return; const slides = [...root.querySelectorAll('.media-slide')]; const dots = [...root.querySelectorAll('.media-dot')]; let current = 0, startX = 0; const show = i => { current = (i + slides.length) % slides.length; slides.forEach((slide, index) => slide.hidden = index !== current); dots.forEach((dot, index) => dot.setAttribute('aria-current', String(index === current))); }; root.querySelector('[data-direction="previous"]').addEventListener('click', () => show(current - 1)); root.querySelector('[data-direction="next"]').addEventListener('click', () => show(current + 1)); dots.forEach((dot, index) => dot.addEventListener('click', () => show(index))); root.addEventListener('keydown', event => { if (event.key === 'ArrowLeft') show(current - 1); if (event.key === 'ArrowRight') show(current + 1); }); root.addEventListener('touchstart', event => startX = event.changedTouches[0].screenX, { passive: true }); root.addEventListener('touchend', event => { const distance = event.changedTouches[0].screenX - startX; if (Math.abs(distance) > 40) show(current + (distance < 0 ? 1 : -1)); }, { passive: true }); })();</script>'''
     (target_dir / 'media.html').write_text(
         head('สื่อประชาสัมพันธ์ทั้งหมด | ผู้สมัครกรรมการ สอ.มก. 2570', 'รวมโปสเตอร์และอินโฟกราฟิกผู้สมัครกรรมการ สอ.มก. ประจำปี 2570', asset_prefix, is_new_v1=is_new_v1) +
-        f'''<main id="main"><section class="media-intro"><p class="eyebrow">สื่อประชาสัมพันธ์ · 2570</p><h1>โปสเตอร์และ<br><span>อินโฟกราฟิกทั้งหมด</span></h1><p>เลือกดูภาพเต็มหรือดาวน์โหลดไฟล์สำหรับเผยแพร่</p></section><section class="media-grid" aria-label="โปสเตอร์และอินโฟกราฟิก">{gallery_items}</section></main>''' +
+        f'''<main id="main"><section class="media-intro"><p class="eyebrow">สื่อประชาสัมพันธ์ · 2570</p><h1>โปสเตอร์และ<br><span>อินโฟกราฟิกทั้งหมด</span></h1><p>เลื่อนดูทีละภาพ หรือแตะภาพเพื่อเปิดขนาดเต็ม</p></section><section class="media-slideshow" aria-label="โปสเตอร์และอินโฟกราฟิก" tabindex="0"><div class="media-stage">{slides}</div><div class="media-controls"><button type="button" data-direction="previous" aria-label="ภาพก่อนหน้า">← ก่อนหน้า</button><span class="media-count">7 ภาพ</span><button type="button" data-direction="next" aria-label="ภาพถัดไป">ถัดไป →</button></div><div class="media-dots" aria-label="เลือกภาพ">{dots}</div></section></main>{slider_script}''' +
         get_footer(is_new_v1=is_new_v1),
         encoding='utf-8'
     )
