@@ -171,8 +171,8 @@ MEDIA = [
     ('020304-หน้าตรง-กากบาทแดง-qr-final.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน'),
     ('poster-กอดอก-พร้อม-QR-20260923-v4.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน แบบกอดอก'),
     ('thawiwat-infographic-v5.png', 'อินโฟกราฟิก หมายเลข 2 · ทวีวัฒน์ ทัศนวัฒน์'),
-    ('thawatchai-infographic-v6.png', 'อินโฟกราฟิก หมายเลข 3 · ธวัชชัย ศักดิ์ภู่อร่าม'),
-    ('rangsarn-infographic-v10-reference-layout-20260924.png', 'อินโฟกราฟิก หมายเลข 4 · รังสรรค์ ปีติปัญญา'),
+    ('thawatchai-final.png', 'อินโฟกราฟิก หมายเลข 3 · ธวัชชัย ศักดิ์ภู่อร่าม'),
+    ('rangsan-final.png', 'อินโฟกราฟิก หมายเลข 4 · รังสรรค์ ปีติปัญญา'),
     ('ปกหลัง-ดีไซน์ใหม่-2026-09-21.png', 'โปสเตอร์นโยบาย ดีไซน์ใหม่'),
 ]
 
@@ -248,8 +248,8 @@ def generate_site(target_dir: Path, asset_prefix: str = '', is_new_v1: bool = Fa
         mock_notice = '<div class="mock-notice"><strong>ข้อมูลตัวอย่าง</strong><span>ประวัติ การศึกษา และแนวคิด ใช้ข้อมูลของ อ.ทวีวัฒน์ ทัศนวัฒน์ ชั่วคราว ระหว่างรอข้อมูลจริงของ อ.ธวัชชัย</span></div>' if d['mock'] else ''
         infographic_file = {
             'thawiwat': 'media/thawiwat-infographic-v5.png',
-            'thawatchai': 'media/thawatchai-infographic-v6.png',
-            'rangsarn': 'media/rangsarn-infographic-v10-reference-layout-20260924.png',
+            'thawatchai': 'media/thawatchai-final.png',
+            'rangsarn': 'media/rangsan-final.png',
         }.get(d['id'], f"{d['id']}-infographic-v4.png")
         infographic_label = 'ดาวน์โหลดอินโฟกราฟิกตัวอย่าง' if d['mock'] else 'ดาวน์โหลดอินโฟกราฟิก'
         download = f'<div class="download"><a class="button" href="{asset_prefix}assets/{infographic_file}" download>{infographic_label} <span aria-hidden="true">↓</span></a></div>'
@@ -273,6 +273,19 @@ generate_site(out, asset_prefix='', is_new_v1=False)
 
 # 2. Generate /v1/ site (ของใหม่)
 generate_site(out / 'v1', asset_prefix='../', is_new_v1=True)
+
+# Keep the retained v2 pages aligned with the current approved artwork too.
+# They are legacy static pages, so update their download URLs as part of every
+# build instead of leaving old infographic assets reachable from the website.
+legacy_infographics = {
+    'thawatchai-infographic-v6.png': 'media/thawatchai-final.png',
+    'rangsarn-infographic-v8.png': 'media/rangsan-final.png',
+}
+for page in (out / 'v2').glob('*.html'):
+    content = page.read_text(encoding='utf-8')
+    for old_name, new_path in legacy_infographics.items():
+        content = content.replace(f'assets/{old_name}', f'assets/{new_path}')
+    page.write_text(content, encoding='utf-8')
 
 # Make v1 the public entry point while retaining the other versions at their
 # existing URLs for comparison and backwards compatibility.
