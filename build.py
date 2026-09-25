@@ -168,13 +168,13 @@ D = [
 # Approved campaign artwork.  Keep the filenames stable so the published
 # gallery can be refreshed simply by replacing the source files in /final.
 MEDIA = [
-    ('ปกหลัง-ดีไซน์เดิม-2026-09-21.png', 'โปสเตอร์นโยบาย ดีไซน์เดิม'),
-    ('ปกหลัง-ดีไซน์ใหม่-2026-09-21.png', 'โปสเตอร์นโยบาย ดีไซน์ใหม่'),
     ('020304-หน้าตรง-กากบาทแดง-qr-final.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน'),
     ('poster-กอดอก-พร้อม-QR-20260923-v4.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน แบบกอดอก'),
     ('thawiwat-infographic-v5.png', 'อินโฟกราฟิก หมายเลข 2 · ทวีวัฒน์ ทัศนวัฒน์'),
     ('thawatchai-infographic-v6.png', 'อินโฟกราฟิก หมายเลข 3 · ธวัชชัย ศักดิ์ภู่อร่าม'),
     ('rangsarn-infographic-v10-reference-layout-20260924.png', 'อินโฟกราฟิก หมายเลข 4 · รังสรรค์ ปีติปัญญา'),
+    ('ปกหลัง-ดีไซน์เดิม-2026-09-21.png', 'โปสเตอร์นโยบาย ดีไซน์เดิม'),
+    ('ปกหลัง-ดีไซน์ใหม่-2026-09-21.png', 'โปสเตอร์นโยบาย ดีไซน์ใหม่'),
 ]
 
 final_artwork = root.parent / 'exports2026-09-25' / 'final'
