@@ -1036,3 +1036,15 @@ footer {
     transition: none !important;
   }
 }
+
+/* Full-size media viewer */
+.media-view { display: block; cursor: zoom-in; }
+.media-view:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
+.media-lightbox { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; margin: 0; padding: 0; border: 0; background: rgba(8, 24, 20, .94); overflow: auto; overscroll-behavior: contain; }
+.media-lightbox::backdrop { background: rgba(8, 24, 20, .94); }
+.media-lightbox[open] { display: grid; place-items: center; }
+.lightbox-image { display: block; max-width: 100%; max-height: 100dvh; width: auto; height: auto; object-fit: contain; cursor: zoom-in; }
+.media-lightbox.zoomed { place-items: start center; }
+.media-lightbox.zoomed .lightbox-image { max-width: none; max-height: none; cursor: zoom-out; }
+.lightbox-close { position: fixed; top: max(12px, env(safe-area-inset-top)); right: 12px; z-index: 1; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--green); font-size: 28px; line-height: 1; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+@media (max-width: 540px) { .media-lightbox.zoomed .lightbox-image { width: 200vw; } }

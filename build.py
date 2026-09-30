@@ -194,7 +194,7 @@ for d in D:
             im.save(webp_file, 'WEBP', quality=85, method=6)
 
 def head(title, desc, prefix='', is_new_v1=False):
-    css_file = f"{prefix}style-v1.css?v=3" if is_new_v1 else f"{prefix}style.css?v=9"
+    css_file = f"{prefix}style-v1.css?v=4" if is_new_v1 else f"{prefix}style.css?v=10"
     version_badge = '<span class="version-badge" title="เวอร์ชันปรับปรุงเลย์เอาต์ใหม่">v1 (ใหม่)</span>' if is_new_v1 else ''
     return f'''<!doctype html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title}</title><meta name="description" content="{desc}"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23123f35'/%3E%3Cpath d='M8 23V10h4v13m4 0V6h4v17m4 0V13h3v10' stroke='%23d9be7c' stroke-width='2'/%3E%3C/svg%3E"><link rel="stylesheet" href="{prefix}fonts.css"><link rel="stylesheet" href="{css_file}"></head><body><a class="skip" href="#main">ข้ามไปเนื้อหา</a><header><a class="brand" href="index.html"><span class="brandmark">สอ.มก.</span><span>สมาชิกก้าวหน้า<small>สอ.มก.มั่นคง {version_badge}</small></span></a></header>'''
 
@@ -224,12 +224,15 @@ def generate_site(target_dir: Path, asset_prefix: str = '', is_new_v1: bool = Fa
     )
 
     gallery_items = ''.join(
-        f'''<article class="media-card"><img src="{asset_prefix}assets/media/{filename}" alt="{label}"{' fetchpriority="high"' if i == 0 else ' loading="lazy"'} decoding="async"><div class="media-card-footer"><span>{label}</span><a href="{asset_prefix}assets/media/{filename}" download aria-label="ดาวน์โหลด {label}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7M5 20v-2h14v2H5z"/></svg></a></div></article>'''
+        f'''<article class="media-card"><a class="media-view" href="{asset_prefix}assets/media/{filename}" target="_blank" rel="noopener" aria-label="ดูภาพขนาดเต็ม {label}"><img src="{asset_prefix}assets/media/{filename}" alt="{label}"{' fetchpriority="high"' if i == 0 else ' loading="lazy"'} decoding="async"></a><div class="media-card-footer"><span>{label}</span><a href="{asset_prefix}assets/media/{filename}" download aria-label="ดาวน์โหลด {label}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7M5 20v-2h14v2H5z"/></svg></a></div></article>'''
         for i, (filename, label) in enumerate(MEDIA)
     )
+    # Full-size viewer: one image at a time (no slideshow).  Tap the image to
+    # toggle fit-to-screen / actual size; without JS the link opens the file.
+    lightbox_script = '''<script>(() => { const box = document.querySelector('.media-lightbox'); if (!box || !box.showModal) return; const image = box.querySelector('.lightbox-image'); document.querySelectorAll('.media-view').forEach(link => link.addEventListener('click', event => { event.preventDefault(); const thumb = link.querySelector('img'); image.src = link.href; image.alt = thumb.alt; box.classList.remove('zoomed'); box.showModal(); })); image.addEventListener('click', event => { event.stopPropagation(); box.classList.toggle('zoomed'); }); box.querySelector('.lightbox-close').addEventListener('click', () => box.close()); box.addEventListener('click', event => { if (event.target === box) box.close(); }); box.addEventListener('close', () => { image.src = ''; }); })();</script>'''
     (target_dir / 'media.html').write_text(
         head('สื่อประชาสัมพันธ์ทั้งหมด | ผู้สมัครกรรมการ สอ.มก. 2570', 'รวมโปสเตอร์และอินโฟกราฟิกผู้สมัครกรรมการ สอ.มก. ประจำปี 2570', asset_prefix, is_new_v1=is_new_v1) +
-        f'''<main id="main"><section class="media-intro"><p class="eyebrow">สื่อประชาสัมพันธ์ · 2570</p><h1>โปสเตอร์และ<br><span>อินโฟกราฟิกทั้งหมด</span></h1><p>เลื่อนดูภาพทั้งหมด และกดไอคอนเพื่อดาวน์โหลดไฟล์</p></section><section class="media-grid" aria-label="โปสเตอร์และอินโฟกราฟิก">{gallery_items}</section></main>''' +
+        f'''<main id="main"><section class="media-intro"><p class="eyebrow">สื่อประชาสัมพันธ์ · 2570</p><h1>โปสเตอร์และ<br><span>อินโฟกราฟิกทั้งหมด</span></h1><p>แตะภาพเพื่อดูขนาดเต็ม และกดไอคอนเพื่อดาวน์โหลดไฟล์</p></section><section class="media-grid" aria-label="โปสเตอร์และอินโฟกราฟิก">{gallery_items}</section></main><dialog class="media-lightbox" aria-label="ภาพขนาดเต็ม"><button class="lightbox-close" type="button" aria-label="ปิด">×</button><img class="lightbox-image" src="" alt=""></dialog>{lightbox_script}''' +
         get_footer(is_new_v1=is_new_v1),
         encoding='utf-8'
     )
