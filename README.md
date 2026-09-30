@@ -16,7 +16,7 @@ Run `python3 -m http.server 8765 --directory dist` from this directory.
 - `dist/v1/`: primary full official PDF policies version (`v1/index.html`, `v1/thawiwat.html`, `v1/thawatchai.html`, `v1/rangsarn.html`, `v1/rangsan.html`)
 - `dist/style.css`: shared responsive layout
 - `dist/assets/`: original candidate photos resized for web, self-hosted fonts, infographic downloads
-- `dist/assets/media/`: approved artwork copied from `../exports2026-09-25/final/` during each build
+- `dist/assets/media/`: versioned artwork copied from `../20290930-production/` (five updated images) and `../exports2026-09-25/final/` (policy poster) during each build
 - `prompts/`: dedicated directory for candidate-specific infographic prompts and master approved texts
 
 The supplied QR-data PDFs are content sources. Names/titles follow `prompts/ข้อความอินโฟกราฟิก-รายผู้สมัคร.txt`, which confirms the Rangsarn surname as ปิติปัญญา. Private addresses, contact details, dates of birth and application form fields are excluded. Each candidate has an independent URL suitable for a later QR destination. Confirmed ballot numbers: Thawiwat 2; Thawatchai 3; Rangsarn 4. Prominent number badges appear on index and individual profiles. All candidates now use verified, official QR data.

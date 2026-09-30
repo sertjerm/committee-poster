@@ -165,22 +165,29 @@ D = [
     ),
 ]
 
-# Approved campaign artwork.  Keep the filenames stable so the published
-# gallery can be refreshed simply by replacing the source files in /final.
+# Versioned approved artwork; keep previous files for existing links.
 MEDIA = [
-    ('020304-หน้าตรง-กากบาทแดง-qr-final.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน'),
-    ('poster-กอดอก-พร้อม-QR-20260923-v4.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน แบบกอดอก'),
-    ('thawiwat-infographic-v5.png', 'อินโฟกราฟิก หมายเลข 2 · ทวีวัฒน์ ทัศนวัฒน์'),
-    ('thawatchai-final.png', 'อินโฟกราฟิก หมายเลข 3 · ธวัชชัย ศักดิ์ภู่อร่าม'),
-    ('rangsan-final.png', 'อินโฟกราฟิก หมายเลข 4 · รังสรรค์ ปีติปัญญา'),
+    ('poster-front-20260930.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน'),
+    ('poster-crossed-arms-20260930.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน แบบกอดอก'),
+    ('thawiwat-final-20260930.png', 'อินโฟกราฟิก หมายเลข 2 · ทวีวัฒน์ ทัศนวัฒน์'),
+    ('thawatchai-final-20260930.png', 'อินโฟกราฟิก หมายเลข 3 · ธวัชชัย ศักดิ์ภู่อร่าม'),
+    ('rangsan-final-20260930.png', 'อินโฟกราฟิก หมายเลข 4 · รังสรรค์ ปีติปัญญา'),
     ('ปกหลัง-ดีไซน์ใหม่-2026-09-21.png', 'โปสเตอร์นโยบาย ดีไซน์ใหม่'),
 ]
 
+production_artwork = root.parent / '20290930-production'
 final_artwork = root.parent / 'exports2026-09-25' / 'final'
+artwork_sources = {
+    'poster-front-20260930.png': production_artwork / 'หน้าตรง.png',
+    'poster-crossed-arms-20260930.png': production_artwork / 'กอดอก.png',
+    'thawiwat-final-20260930.png': production_artwork / 'thawiwat-final.png',
+    'thawatchai-final-20260930.png': production_artwork / 'thawatchai-final.png',
+    'rangsan-final-20260930.png': production_artwork / 'rangsan-final.png',
+}
 media_dir = out / 'assets' / 'media'
 media_dir.mkdir(parents=True, exist_ok=True)
 for filename, _ in MEDIA:
-    source = final_artwork / filename
+    source = artwork_sources.get(filename, final_artwork / filename)
     if not source.is_file():
         raise FileNotFoundError(f'Missing approved artwork: {source}')
     shutil.copy2(source, media_dir / filename)
@@ -250,9 +257,9 @@ def generate_site(target_dir: Path, asset_prefix: str = '', is_new_v1: bool = Fa
             other_links = ''.join(f'<a href="{o["id"]}.html"><span class="next-badge">หมายเลข {o["number"]}</span> {o["degree"]}{o["name"]} <span aria-hidden="true">↗</span></a>' for o in others)
         mock_notice = '<div class="mock-notice"><strong>ข้อมูลตัวอย่าง</strong><span>ประวัติ การศึกษา และแนวคิด ใช้ข้อมูลของ อ.ทวีวัฒน์ ทัศนวัฒน์ ชั่วคราว ระหว่างรอข้อมูลจริงของ อ.ธวัชชัย</span></div>' if d['mock'] else ''
         infographic_file = {
-            'thawiwat': 'media/thawiwat-infographic-v5.png',
-            'thawatchai': 'media/thawatchai-final.png',
-            'rangsarn': 'media/rangsan-final.png',
+            'thawiwat': 'media/thawiwat-final-20260930.png',
+            'thawatchai': 'media/thawatchai-final-20260930.png',
+            'rangsarn': 'media/rangsan-final-20260930.png',
         }.get(d['id'], f"{d['id']}-infographic-v4.png")
         infographic_label = 'ดาวน์โหลดอินโฟกราฟิกตัวอย่าง' if d['mock'] else 'ดาวน์โหลดอินโฟกราฟิก'
         download = f'<div class="download"><a class="button" href="{asset_prefix}assets/{infographic_file}" download>{infographic_label} <span aria-hidden="true">↓</span></a></div>'
@@ -281,8 +288,12 @@ generate_site(out / 'v1', asset_prefix='../', is_new_v1=True)
 # They are legacy static pages, so update their download URLs as part of every
 # build instead of leaving old infographic assets reachable from the website.
 legacy_infographics = {
-    'thawatchai-infographic-v6.png': 'media/thawatchai-final.png',
-    'rangsarn-infographic-v8.png': 'media/rangsan-final.png',
+    'thawiwat-infographic-v5.png': 'media/thawiwat-final-20260930.png',
+    'media/thawiwat-infographic-v5.png': 'media/thawiwat-final-20260930.png',
+    'media/thawatchai-final.png': 'media/thawatchai-final-20260930.png',
+    'media/rangsan-final.png': 'media/rangsan-final-20260930.png',
+    'thawatchai-infographic-v6.png': 'media/thawatchai-final-20260930.png',
+    'rangsarn-infographic-v8.png': 'media/rangsan-final-20260930.png',
 }
 for page in (out / 'v2').glob('*.html'):
     content = page.read_text(encoding='utf-8')
