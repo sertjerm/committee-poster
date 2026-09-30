@@ -192,13 +192,15 @@ for filename, _ in MEDIA:
         raise FileNotFoundError(f'Missing approved artwork: {source}')
     shutil.copy2(source, media_dir / filename)
 
-# Ensure WebP assets exist
+# Generate versioned web portraits from the approved logo-free originals.
 for d in D:
-    jpg_file = out / 'assets' / f"{d['id']}.jpg"
-    webp_file = out / 'assets' / f"{d['id']}.webp"
-    if jpg_file.exists() and not webp_file.exists():
-        with Image.open(jpg_file) as im:
-            im.save(webp_file, 'WEBP', quality=85, method=6)
+    stem = f"{d['id']}-no-logo-v1"
+    source = root / 'portrait-sources' / f"{stem}.png"
+    with Image.open(source) as im:
+        im = im.convert('RGB')
+        im.thumbnail((1100, 1572), Image.Resampling.LANCZOS)
+        im.save(out / 'assets' / f"{stem}.jpg", quality=95)
+        im.save(out / 'assets' / f"{stem}.webp", 'WEBP', quality=92, method=6)
 
 def head(title, desc, prefix='', is_new_v1=False):
     css_file = f"{prefix}style-v1.css?v=4" if is_new_v1 else f"{prefix}style.css?v=10"
@@ -219,9 +221,9 @@ def generate_site(target_dir: Path, asset_prefix: str = '', is_new_v1: bool = Fa
         mock_badge = '<span class="mock-badge">ข้อมูลตัวอย่าง</span>' if d['mock'] else ''
         if is_new_v1:
             img_loading = 'loading="eager" fetchpriority="high" decoding="async"' if i == 0 else 'loading="lazy" decoding="async"'
-            cards += f'''<a class="candidate" href="{d['id']}.html"><div class="portrait"><picture><source srcset="{asset_prefix}assets/{d['id']}.webp" type="image/webp"><img src="{asset_prefix}assets/{d['id']}.jpg" alt="{d['degree']}{d['name']}" width="550" height="740" {img_loading}></picture></div><div class="cardbody">{mock_badge}<div class="cardhead"><div class="cardtitles"><p class="degree">{d['degree']}</p><h2>{d['name']}</h2></div><div class="official-seal card-seal" aria-label="หมายเลขผู้สมัคร {d['number']}"><span class="seal-label">หมายเลข</span><strong class="seal-num">{d['number']}</strong></div></div><p>{d['role']}<br>{d['role2']}</p><span class="read">ดูประวัติและแนวคิด <span aria-hidden="true">↗</span></span></div></a>'''
+            cards += f'''<a class="candidate" href="{d['id']}.html"><div class="portrait"><picture><source srcset="{asset_prefix}assets/{d['id']}-no-logo-v1.webp" type="image/webp"><img src="{asset_prefix}assets/{d['id']}-no-logo-v1.jpg" alt="{d['degree']}{d['name']}" width="550" height="740" {img_loading}></picture></div><div class="cardbody">{mock_badge}<div class="cardhead"><div class="cardtitles"><p class="degree">{d['degree']}</p><h2>{d['name']}</h2></div><div class="official-seal card-seal" aria-label="หมายเลขผู้สมัคร {d['number']}"><span class="seal-label">หมายเลข</span><strong class="seal-num">{d['number']}</strong></div></div><p>{d['role']}<br>{d['role2']}</p><span class="read">ดูประวัติและแนวคิด <span aria-hidden="true">↗</span></span></div></a>'''
         else:
-            cards += f'''<a class="candidate" href="{d['id']}.html"><div class="portrait"><img src="{asset_prefix}assets/{d['id']}.jpg" alt="{d['degree']}{d['name']}" width="550" height="740"></div><div class="cardbody">{mock_badge}<div class="cardhead"><div class="cardtitles"><p class="degree">{d['degree']}</p><h2>{d['name']}</h2></div><span class="ballot" aria-label="หมายเลขผู้สมัคร {d['number']}"><span>หมายเลข</span><strong>{d['number']}</strong></span></div><p>{d['role']}<br>{d['role2']}</p><span class="read">ดูประวัติและแนวคิด <span aria-hidden="true">↗</span></span></div></a>'''
+            cards += f'''<a class="candidate" href="{d['id']}.html"><div class="portrait"><img src="{asset_prefix}assets/{d['id']}-no-logo-v1.jpg" alt="{d['degree']}{d['name']}" width="550" height="740"></div><div class="cardbody">{mock_badge}<div class="cardhead"><div class="cardtitles"><p class="degree">{d['degree']}</p><h2>{d['name']}</h2></div><span class="ballot" aria-label="หมายเลขผู้สมัคร {d['number']}"><span>หมายเลข</span><strong>{d['number']}</strong></span></div><p>{d['role']}<br>{d['role2']}</p><span class="read">ดูประวัติและแนวคิด <span aria-hidden="true">↗</span></span></div></a>'''
 
     (target_dir / 'index.html').write_text(
         head('รู้จักผู้สมัครกรรมการ สอ.มก. 2570', 'ประวัติ ประสบการณ์ และแนวคิดในการทำงานของผู้สมัครกรรมการ สอ.มก. ประจำปี 2570', asset_prefix, is_new_v1=is_new_v1) +
@@ -265,9 +267,9 @@ def generate_site(target_dir: Path, asset_prefix: str = '', is_new_v1: bool = Fa
         download = f'<div class="download"><a class="button" href="{asset_prefix}assets/{infographic_file}" download>{infographic_label} <span aria-hidden="true">↓</span></a></div>'
         
         if is_new_v1:
-            hero_html = f'''<div class="identity-lockup"><div class="official-seal profile-seal" aria-label="หมายเลขผู้สมัคร {d['number']}"><span class="seal-label">หมายเลข</span><strong class="seal-num">{d['number']}</strong><span class="seal-track">สายวิชาการ</span></div><div class="identity-info"><p class="eyebrow">ผู้สมัครกรรมการ สายวิชาการ · 2570</p><h1 class="candidate-fullname"><span class="degree-prefix">{d['degree']}</span>{d['name']}</h1><p class="candidate-roles">{d['role']}<br>{d['role2']}</p></div></div><div class="hero-line"></div><h2>{d['lead'].replace(chr(10), '<br>')}</h2><p class="profile-intro">{d['intro']}</p><a class="button" href="#ideas">แนวคิดในการทำงาน <span aria-hidden="true">↓</span></a></div><div class="profile-photo"><picture><source srcset="{asset_prefix}assets/{d['id']}.webp" type="image/webp"><img src="{asset_prefix}assets/{d['id']}.jpg" alt="{d['degree']}{d['name']}" width="550" height="790" fetchpriority="high" decoding="async"></picture></div>'''
+            hero_html = f'''<div class="identity-lockup"><div class="official-seal profile-seal" aria-label="หมายเลขผู้สมัคร {d['number']}"><span class="seal-label">หมายเลข</span><strong class="seal-num">{d['number']}</strong><span class="seal-track">สายวิชาการ</span></div><div class="identity-info"><p class="eyebrow">ผู้สมัครกรรมการ สายวิชาการ · 2570</p><h1 class="candidate-fullname"><span class="degree-prefix">{d['degree']}</span>{d['name']}</h1><p class="candidate-roles">{d['role']}<br>{d['role2']}</p></div></div><div class="hero-line"></div><h2>{d['lead'].replace(chr(10), '<br>')}</h2><p class="profile-intro">{d['intro']}</p><a class="button" href="#ideas">แนวคิดในการทำงาน <span aria-hidden="true">↓</span></a></div><div class="profile-photo"><picture><source srcset="{asset_prefix}assets/{d['id']}-no-logo-v1.webp" type="image/webp"><img src="{asset_prefix}assets/{d['id']}-no-logo-v1.jpg" alt="{d['degree']}{d['name']}" width="550" height="790" fetchpriority="high" decoding="async"></picture></div>'''
         else:
-            hero_html = f'''<div class="profile-hero-top"><div class="profile-titles"><p class="eyebrow">ผู้สมัครกรรมการ สายวิชาการ · 2570</p><p class="degree">{d['degree']}</p><h1>{d['name'].replace(' ', '<br>')}</h1></div><span class="ballot" aria-label="หมายเลขผู้สมัคร {d['number']}"><span>หมายเลข</span><strong>{d['number']}</strong></span></div><p class="role">{d['role']}<br>{d['role2']}</p><div class="hero-line"></div><h2>{d['lead'].replace(chr(10), '<br>')}</h2><p>{d['intro']}</p><a class="button" href="#ideas">แนวคิดในการทำงาน <span aria-hidden="true">↓</span></a></div><div class="profile-photo"><img src="{asset_prefix}assets/{d['id']}.jpg" alt="{d['degree']}{d['name']}" width="550" height="790"></div>'''
+            hero_html = f'''<div class="profile-hero-top"><div class="profile-titles"><p class="eyebrow">ผู้สมัครกรรมการ สายวิชาการ · 2570</p><p class="degree">{d['degree']}</p><h1>{d['name'].replace(' ', '<br>')}</h1></div><span class="ballot" aria-label="หมายเลขผู้สมัคร {d['number']}"><span>หมายเลข</span><strong>{d['number']}</strong></span></div><p class="role">{d['role']}<br>{d['role2']}</p><div class="hero-line"></div><h2>{d['lead'].replace(chr(10), '<br>')}</h2><p>{d['intro']}</p><a class="button" href="#ideas">แนวคิดในการทำงาน <span aria-hidden="true">↓</span></a></div><div class="profile-photo"><img src="{asset_prefix}assets/{d['id']}-no-logo-v1.jpg" alt="{d['degree']}{d['name']}" width="550" height="790"></div>'''
 
         page = f'''<main id="main"><a class="back" href="index.html#candidates">← ผู้สมัครทั้งหมด</a>{mock_notice}<section class="profile-hero"><div class="profile-copy">{hero_html}</section><nav class="section-nav" aria-label="หัวข้อประวัติ"><a href="#ideas">แนวคิด</a><a href="#experience">ประสบการณ์</a><a href="#education">การศึกษา</a></nav><section class="section" id="ideas"><div class="section-heading"><span class="eyebrow">แนวคิดในการทำงาน</span><h2>{len(policy_list)} แนวทางเพื่อสมาชิก</h2></div><div class="policy-grid">{policies}</div></section><section class="section experience" id="experience"><div class="section-heading"><span class="eyebrow">ประสบการณ์</span><h2>งานที่ผ่านมา</h2></div><div>{jobs}<details><summary>อ่านประสบการณ์เพิ่มเติม</summary><ul class="experience-list">{exp}</ul><p>{d['bio']}</p></details></div></section><section class="section education" id="education"><div class="section-heading"><span class="eyebrow">ประวัติการศึกษา</span><h2>พื้นฐานความรู้</h2></div><ul class="education-list">{edu}</ul></section>{download}<aside class="next"><span>รู้จักผู้สมัครท่านอื่น</span><div class="next-links">{other_links}</div></aside></main>'''
         
@@ -318,5 +320,13 @@ for page in (out / 'v2').glob('*.html'):
 </body>
 </html>
 ''', encoding='utf-8')
+
+# Update portraits on retained legacy pages as well.
+for page in out.glob('**/*.html'):
+    content = page.read_text(encoding='utf-8')
+    for d in D:
+        for ext in ('jpg', 'webp'):
+            content = content.replace(f"assets/{d['id']}.{ext}", f"assets/{d['id']}-no-logo-v1.{ext}")
+    page.write_text(content, encoding='utf-8')
 
 print('Build completed successfully.')

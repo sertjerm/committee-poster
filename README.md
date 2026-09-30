@@ -28,3 +28,7 @@ The supplied QR-data PDFs are content sources. Names/titles follow `prompts/ข�
 Preserves the original green-and-white design. Ballot numbers 2, 3, and 4 sit in the text area, outside the portrait. Narrow-screen cards stack the complete portrait above the candidate information; names use the same font size for all candidates. Real data for Thawatchai (Ph.D. Azabu University, former Dean, former Veterinary Council President, 6 policies) fully applied; mock notices removed. Candidate prompts organized cleanly in `minisite-v1/prompts/`.
 
 Validation: local references checked; desktop and narrow mobile layouts reviewed; no horizontal overflow and ballot badges outside portraits confirmed; concept anchor navigation verified; all HTML checks passed.
+
+## Portrait update — 30 September 2026
+
+All candidate cards and profile pages, including legacy URLs, now use versioned logo-free portraits. Approved PNG sources live in `portrait-sources/`; `build.py` creates JPEG and WebP assets from them. Original assets remain available.
