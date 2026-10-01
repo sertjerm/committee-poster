@@ -32,3 +32,7 @@ Validation: local references checked; desktop and narrow mobile layouts reviewed
 ## Portrait update — 30 September 2026
 
 All candidate cards and profile pages, including legacy URLs, now use versioned logo-free portraits. Approved PNG sources live in `portrait-sources/`; `build.py` creates JPEG and WebP assets from them. Original assets remain available.
+
+## Front poster correction — 1 October 2026
+
+The media gallery now uses `poster-front-20261001.png`, copied unchanged from the corrected `../20290930-production/หน้าตรง.png`. The previous artwork remains available for existing links.

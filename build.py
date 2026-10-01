@@ -167,7 +167,7 @@ D = [
 
 # Versioned approved artwork; keep previous files for existing links.
 MEDIA = [
-    ('poster-front-20260930.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน'),
+    ('poster-front-20261001.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน'),
     ('poster-crossed-arms-20260930.png', 'โปสเตอร์ผู้สมัครทั้ง 3 ท่าน แบบกอดอก'),
     ('thawiwat-final-20260930.png', 'อินโฟกราฟิก หมายเลข 2 · ทวีวัฒน์ ทัศนวัฒน์'),
     ('thawatchai-final-20260930.png', 'อินโฟกราฟิก หมายเลข 3 · ธวัชชัย ศักดิ์ภู่อร่าม'),
@@ -178,7 +178,7 @@ MEDIA = [
 production_artwork = root.parent / '20290930-production'
 final_artwork = root.parent / 'exports2026-09-25' / 'final'
 artwork_sources = {
-    'poster-front-20260930.png': production_artwork / 'หน้าตรง.png',
+    'poster-front-20261001.png': production_artwork / 'หน้าตรง.png',
     'poster-crossed-arms-20260930.png': production_artwork / 'กอดอก.png',
     'thawiwat-final-20260930.png': production_artwork / 'thawiwat-final.png',
     'thawatchai-final-20260930.png': production_artwork / 'thawatchai-final.png',
